@@ -1,0 +1,73 @@
+https://python-patterns.guide/
+
+
+Adapter Pattern:
+Instead of creating destination-specific subclasses,
+we adapt each destination to the behavior of a file,
+and then pass the adapter to a Logger as its output file
+fs = FileLikeSocket(sock1)
+logger = FilteredLogger('Error', fs)
+
+
+Bridge Pattern:
+The Bridge Pattern splits a class's behavior between:
+ - an outer "abstraction" object that the caller sees,
+ - an "implementation" object that's wrapped inside.
+handler = FileHandler(sys.stdout)
+logger = FilteredLogger('Error', handler)
+
+
+The Decorator Pattern
+Extend functions/classes behavior by wrapping them to new function/class
+log1 = FileLogger(sys.stdout)
+log2 = LogFilter('Error', log1)
+
+
+Composite Pattern
+Composition over inheritance: create separate independent classes and compose them to a parent class insread of inheritance.
+
+
+Iterator pattern:
+Built in to python syntax:
+for item in items:
+    ....
+
+
+Dodge: "if" statements
+Dodge: Multiple Inheritance
+Dodge: Mixins
+Dodge: Building classes dynamically
+
+
+The Global Object Pattern
+Python parses the outer level of each module as normal code.
+Un-indented assignment statements, expressions, and even loops and conditionals will execute as the module is imported.
+This presents an excellent opportunity to supplement a module's classes and functions with constants and data structures
+that callers will find useful, but also offers dangerous temptations: mutable global objects can wind up coupling distant code
+and I/O operations impose import-time expense and side effects.
+
+
+The Prebound Method Pattern
+A powerful technique for offering callables at the top level of your module that share state through a common object.
+ - Instantiate your class at the top level of your module.
+ - Consider assigning it a private name prefixed with an underscore _ that does not invite users to meddle with the object directly.
+ - Finally, assign a bound copy of each of the object's methods to the module's global namespace.
+
+
+Sentinel Pattern
+"None" and "False" are objects and standard sentinel objects.
+Other example:
+sentinel = object()  # unique object used to signal cache misses
+result = cache_get(key, sentinel)
+if result is not sentinel:
+    ...
+
+
+All of the creational patterns are poor fit to python,
+mainly because in python everything is an object (callable or not),
+and you can pass everything around
+Abstract factory pattern
+The Builder Pattern
+The Factory Method Pattern
+The Prototype Pattern
+The Singleton Pattern
