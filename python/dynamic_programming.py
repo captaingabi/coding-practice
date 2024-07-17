@@ -1,7 +1,8 @@
 #!/bin/python3
 import timeit
 
-from memoization import cached
+# from memoization import cached  # Pre 3.2
+from functools import lru_cache  # from 3.2, better
 from statistics import mean
 
 
@@ -18,8 +19,8 @@ def fib(n):
 # print(fib(50)) #  Very slow!
 
 
-# Recusrion with memoization:
-@cached
+# Recusrion with cache:
+@lru_cache
 def fib_memo(n):
     if n <= 2:
         return 1
