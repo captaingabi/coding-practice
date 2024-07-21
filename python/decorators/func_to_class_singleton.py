@@ -9,7 +9,7 @@ def timer(cls):
         value = cls(*args, **kwargs)
         end_time = time.perf_counter()
         run_time = end_time - start_time
-        print(f"Finished {cls.__name__}() in {run_time:.4f} secs")
+        print(f"Finished {cls.__name__}() in {run_time:.8f} secs")
         return value
     return wrapper_timer
 

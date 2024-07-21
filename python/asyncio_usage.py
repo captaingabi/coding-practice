@@ -62,7 +62,11 @@ async def main3():
 
     asyncio.create_task(set_future(future, 1, 'result future'))
 
+    print(f"started at {time.strftime('%X')}")
+
     print('meanwhile ...')
     print(await future)
+
+    print(f"finished at {time.strftime('%X')}")
 
 asyncio.run(main3())

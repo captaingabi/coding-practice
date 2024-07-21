@@ -10,7 +10,8 @@ so that only one native thread (per process) can execute basic operations
 As a general rule, an interpreter that uses GIL will see
 only one thread to execute at a time,
 
-Note: python 3.13 will make GIL optional
+Note: python 3.13 will make GIL optional and the interpreter thread safe,
+      but many legacy code will not be compatible
 '''
 
 import threading
@@ -25,7 +26,7 @@ def calculate_squares(numbers):
               f"Thread Name {threading.current_thread().name} | " +
               f"PID of the process {os.getpid()}"
               )
-        n = 40000000
+        n = 50000000
         while n > 0:
             n = n-1
 

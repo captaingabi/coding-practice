@@ -3,7 +3,8 @@
 from dataclasses import dataclass
 
 
-# frozen will also create default __eq__ and __hash__
+# dataclass will create auto __init__, __eq__, __repr__
+# frozen will also create default __hash__
 @dataclass(frozen=True)
 class InventoryItem:
     name: str
@@ -15,9 +16,13 @@ class InventoryItem:
 
 
 apple = InventoryItem("apple", 100, 5)
+apple2 = InventoryItem("apple", 100, 5)
 orange = InventoryItem("orange", 120, 7)
 
 print(apple)
+
+print(f"{apple == apple2=}")
+print(f"{apple == orange=}")
 
 items = {apple, orange}
 print(items)

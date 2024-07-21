@@ -31,7 +31,6 @@ class Person:
 
 print("instantianate")
 peter = Person('Peter P', 10)
-print("vars")
-print(vars(peter))
+print(f"{vars(peter)=}")
 print("birthday")
 peter.birthday()

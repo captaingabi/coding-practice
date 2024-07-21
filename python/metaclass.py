@@ -27,6 +27,7 @@ class Bar(Foo):
 '''
 Bar = type('Bar', (Foo,), dict(attr=100))
 
+
 '''
 class Bar(Foo):
     def __init__(self, attr):
