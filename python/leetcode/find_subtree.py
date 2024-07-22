@@ -20,17 +20,17 @@ def compare_all_nodes(node_to_check: Node, node: Node) -> Optional[Node]:
     return None
 
 
-result = set()
+# This only assembles a list of nodes that have duplicates
+def find_duplicates(node: Node, root: Node, result: set) -> set[Node]:
+    if node not in result:
+        dup = compare_all_nodes(node, root)
+        if dup:
+            result.add(dup)
+        else:
+            for child in node.children:
+                result.union(find_duplicates(child, root, result))
 
-
-def find_duplicates(node: Node, root: Node):
-    for child in node.children:
-        if child not in result:
-            dup = find_duplicates(child, root)
-            result.add(dup) if dup else None
-
-    dup = compare_all_nodes(node, root)
-    result.add(dup) if dup else None
+    return result
 
 
 root = \
@@ -45,9 +45,10 @@ root = \
                 Node('cc2', (),),
             ),),
         ),),
+        Node('cc2', (),),
     ),)
 
-find_duplicates(root, root)
+result = find_duplicates(root, root, set())
 
 for dup in result:
     print(dup)

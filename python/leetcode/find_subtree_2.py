@@ -8,25 +8,33 @@ class Node():
     children: tuple
 
 
-def compare_all_nodes(node_to_check: Node, node: Node) -> list[Node]:
-    result: list[Node] = []
+def compare_all_nodes(
+    node_to_check: Node,
+    node: Node,
+    result: tuple[Node, ...]
+) -> tuple[Node, ...]:
     if node_to_check == node and node_to_check is not node:
-        result += [node, node_to_check]
-    for child in node.children:
-        result += compare_all_nodes(node_to_check, child)
+        result += (node,)
+    else:
+        for child in node.children:
+            result = compare_all_nodes(node_to_check, child, result)
 
     return result
 
 
-def find_duplicates(node: Node, root: Node) -> list[tuple]:
-    result: list[tuple] = []
-    for child in node.children:
-        result += find_duplicates(child, root)
-
-    dup_nodes = tuple(compare_all_nodes(node, root))
-    # print(node, dup_nodes)
-    if dup_nodes:
-        result.append(dup_nodes)
+# This returns a set of tuples where tuple contains all duplicate instances
+def find_duplicates(
+    node: Node,
+    root: Node,
+    result: set[tuple[Node, ...]]
+) -> set[tuple[Node, ...]]:
+    if node not in result:
+        dups = compare_all_nodes(node, root, ())
+        if dups:
+            result.add(dups + (node,))
+        else:
+            for child in node.children:
+                result.union(find_duplicates(child, root, result))
 
     return result
 
@@ -43,11 +51,12 @@ root = \
                 Node('cc2', (),),
             ),),
         ),),
+        Node('cc2', (),),
     ),)
 
-result = set(find_duplicates(root, root))
+result: set[tuple[Node, ...]] = find_duplicates(root, root, set())
 
 for dups in result:
-    print()
+    print(f"Found {dups[0].name} {len(dups)} times:")
     for dup in dups:
         print(dup)
