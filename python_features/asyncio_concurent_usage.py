@@ -4,6 +4,10 @@ import asyncio
 import time
 
 
+# Main takeaway:
+# - asyncio runs an event loop in 1 thread
+# - concurrent creates multiple threads/processes
+
 # There are three main types of awaitable objects:
 # coroutines, Tasks, and Futures.
 
