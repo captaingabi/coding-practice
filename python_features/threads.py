@@ -22,7 +22,7 @@ import time
 def calculate_squares(numbers):
     for num in numbers:
         square = num * num
-        print(f"Square of the number {num} is {square : >3} | " +
+        print(f"Square of the number {num} is {square: >3} | " +
               f"Thread Name {threading.current_thread().name} | " +
               f"PID of the process {os.getpid()}"
               )
